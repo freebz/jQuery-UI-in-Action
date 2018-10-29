@@ -1,0 +1,15 @@
+<!-- Listing 2.2  Counting the number of dialogs created -->
+
+<button>Make Dialog</button>
+<p>Dialogs created: <span id="count">0</span></p>
+
+<script>
+  var dialogs = 0;
+  $( document ).on( "dialogcreate", function() {
+    dialogs++;
+    $( "#count" ).text( dialogs );
+  });
+  $( "button" ).on( "click", function() {
+    $( "<div>" ).dialog();
+  });
+</script>
