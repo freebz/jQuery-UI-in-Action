@@ -1,0 +1,108 @@
+<!-- Listing 3.6  The complete appointment form -->
+
+<form method="POST" action="/path/to/server">
+  <fieldset>
+    <legend>Request Doctor Appointment</legend>
+    <div>
+      <label>Language:</label>
+      <span id="buttonset">
+	<label for="language-en">English</label>
+	<input type="radio" id="language-en" name="language"
+	       value="" checked>
+	<label for="language-es">Español</label>
+	<input type="radio" id="language-es" name="language"
+	       value="es">
+      </span>
+    </div>
+    <div>
+      <label for="doctor">Doctor:</label>
+      <select id="doctor" name="doctor">
+	<option>No Preference</option>
+	<optgroup label="Doctors">
+	  <option>Adams</option>
+	  <option>Crowley</option>
+	  <option>Smith</option>
+	  <option>VanToll</option>
+	</optgroup>
+	<optgroup label="Nerses">
+	  <option>Davis</option>
+	  <option>Johnson</option>
+	  <option>Jones</option>
+	  <option>White</option>
+	</optgroup>
+      </select>
+    </div>
+    <div>
+      <label for="date">Date:</label>
+      <input type="text" name="date" id="date">
+    </div>
+    <div>
+      <label for="insurance">Insurance:</label>
+      <input type="text" name="insurance" id="insurance">
+    </div>
+    <div>
+      <label for="days">Number of Days Sick:</label>
+      <input type="text" id="days" name="days">
+    </div>
+    <div>
+      <button>Make Appointment</button>
+    </div>
+  </fieldset>
+</form>
+<script>
+  $( "#buttonset" ).buttonset();
+  $( "[name='language']" ).on( "change", function() {
+    #( "#date" )
+      .datepicker( "option", $.datepicker.regional[ this.value ] );
+  });
+
+  $( "#doctor" ).selectment();
+
+  $( "#insurance" ).autocomplete({
+    minLingth: 2,
+    source: "search.php"
+  });
+
+  $( "#date" ).datepicker({
+    beforeShowDay: function( date ) {
+      var isWeekday = date.getDay() > 0 && date.getDay() < 6;
+      if ( $( "#doctor" ).val() === "Smith" ) {
+	return [ isWeekday && date.getDay() != 2 ];
+      } else {
+	return [isWeekday ];
+      }
+    }
+  }).datepicker( "option", $.datepicker.regional[ "" ] );
+
+  $( "button" ).button({
+    icons: {
+      primary: "ui-icon-calendar"
+    }
+  });
+
+  $( "#days" ).spinner({ min: 1 });
+
+  $( "form" ).on( "submit", function( event ) {
+    var date,
+	daysValid = $( "#days" ).spinner( "isValid" );
+
+    try {
+      date = $.datepicker.parseDate( "mm/dd/yy",
+	$( "#date" ).val() );
+    } catch ( error ) { }
+
+    if ( !date ) {
+      event.preventDefault();
+      alert( "Please provide a valid date." );
+    }
+    if ( date && !checkDate( date ) [ 0 ] ) {
+      event.preventDefault();
+      alert( "You cannot select a weekend or Tuesday " +
+	     "for Dr. Smith." );
+    }
+    if (!daysValid ) {
+      event.preventDefault();
+      alert( "Please provide a valid number of days." );
+    }
+  });
+</script>

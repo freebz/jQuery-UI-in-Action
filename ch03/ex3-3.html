@@ -1,0 +1,18 @@
+<!-- Listing 3.3  Autocompletes that only match at the beginning -->
+
+<input id="autocomplete">
+<script>
+  var data = [ "Alligator", "Ant", "Antelope", "Cat",
+	       "Chicken", "Cow" ];
+  $( "#autocomplete" ).autocomplete({
+    source: function( request, response ) {
+      var results = [],
+	  term = $.ui.autocomplete.escapeRegex( request.term ),
+	  matcher = new RegExp( "^" + term, "i" ),
+	  matches = $.grep( data, function( item ) {
+	    return matcher.test( item );
+	  });
+      response( matches );
+    }
+  });
+</script>
