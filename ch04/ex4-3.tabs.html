@@ -1,0 +1,57 @@
+<!-- Listing 4.3  A movie listing with jQuery UI -->
+
+<div id="movie-list" class="ui-widget">
+  <h2>Movie List</h2>
+  <ul>
+    <li><a href="movie.php?movie=ghostbusters">Ghostbusters</a></li>
+    <li><a href="movie.php?movie=titanic">Titanic</a></li>
+    <li><a href="movie.php?movie=top_gun">Top Gun</a></li>
+  </ul>
+</div>
+
+<div id="tabs">
+  <ul>
+    <li><a href="#intro">Introduction</a></li>
+  </ul>
+  <div id="intro">
+    Welcome, select movies and their information will appear here.
+  </div>
+</div>
+
+<script>
+  var tabs = $( "#tabs" ).tabs();
+
+  $( "#movie-list" ).on( "click", "a", function( event ) {
+    event.preventDefault();
+
+    var index,
+	movie = this.innerHTML,
+	existing = tabs.find( "[data-movie='" + movie + "']" );
+
+    if ( existing.length == 0 ) {
+      tabs.find( ".ui-tabs-nav" )
+	  .append( "<li data-movie='" + movie + "'>" +
+		   "<a href='" + this.href + "'>" + movie + "</a>" +
+		   "<button class='ui-icon ui-icon-close'>" +
+		   "Remove Tab</button>" +
+		   "</li>" );
+      tabs.tabs( "refresh" );
+    }
+
+    existing = tabs.find( "[data-movie='" + movie + "']" );
+    index = tabs.find( ".ui-tabs-nav li" ).index( existing );
+    tabs.tabs( "option", "active", index );
+  });
+
+  tabs.on( "click keydown", ".ui-icon-close", function() {
+    if ( event.type === "keydown" && !(
+      event.keyCode === $.ui.keyCode.ENTER ||
+      event.keyCode === $.ui.keyCode.SPACE ) ) {
+      return;
+    }
+    var panelId = $( this ).closet( "li" ).remove()
+			   .attr( "aria-controls" );
+    $( "#" + panelId ).remove();
+    tabs.tabs( "refresh" );
+  });
+</script>

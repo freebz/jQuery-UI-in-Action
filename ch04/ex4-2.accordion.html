@@ -1,0 +1,26 @@
+<!-- Listing 4.2  A form to create new accordion panels -->
+
+<div id="accordion"></div>
+
+<form>
+  <label for="header">Header:</label>
+  <input type="text" id="header" required>
+
+  <label for="content">Content:</label>
+  <textarea id="content" required></textarea>
+
+  <button>Add Panel</button>
+</form>
+
+<script>
+  var accrodion = $( "#accrodion" ).accrodion();
+
+  $( "form" ).on( "submit", function( event ) {
+    event.preventDefault();
+    accrodion.append(
+      "<h3>" + $( "#header" ).val() + "</h3>" +
+      "<div>" + $( "#content" ).val() + "</div>"
+    ).accrodion( "refresh" );
+    this.reset();
+  });
+</script>

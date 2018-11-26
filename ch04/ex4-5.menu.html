@@ -1,0 +1,56 @@
+<!-- Listing 4.5  Implimentation of a message composer -->
+
+<style>
+  .ui-menu { width: 200px; }
+</style>
+
+<div id="composer">
+  <h3>Message Composer</h3>
+  <textarea id="message"></textarea>
+</div>
+
+<ul id="menu">
+  <li>
+    <span class="ui-icon ui-icon-folder-open"></span>Load
+  </li>
+  <li class="ui-state-disabled" id="save-option">
+    <span class="ui-icon ui-icon-disk"></span>Save
+  </li>
+  <li></li>
+  <li>
+    <span class="ui-icon ui-icon-trash"></span>Delete
+  </li>
+</ul>
+
+<script>
+  var menu = $( "#menu" ).menu({
+    select: function( event, ui ) {
+      var selection = $.trim( ui.item.text() ),
+	  message = $( "#message" ).val();
+
+      switch( selection ) {
+	case "Load":
+	  message = localStorage.getItem( "message" );
+	  $( "#message" ).val( message );
+	  break;
+	case "Save":
+	  localStorage.setItem( "message", message );
+	  break;
+	case "Delete":
+	  $( "#message" ).val( "" );
+	  localStorage.removeItem( "message", "" );
+	  break;
+      }
+    }
+  });
+
+  $( "#message" ).on( "keyup", function() {
+    var message = $( this ).val();
+    if ( message.length === 0 ) {
+      $( "#save-option" ).addClass( "ui-state-disabled" );
+    } else {
+      $( "#save-option" ).removeClass( "ui-state-disabled" );
+    }
+    menu.menu( "refresh" );
+  });
+</script>
