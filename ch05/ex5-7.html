@@ -1,0 +1,28 @@
+<!-- Listing 5.7  Mimicking a filesystem GUI with jQuery UI -->
+
+<style>
+  .ui-selecting { background: hotpink; }
+  .ui-selected { background: red; color: white; }
+</style>
+
+<ul id="selectable">
+  <li>book.pdf</li>
+  <li>image.png</li>
+  <li>portrait.jpg</li>
+  <li>paint.bmp</li>
+  <li>words.doc</li>
+  <li>text.txt</li>
+</ul>
+
+<button id="add">Add File</button>
+<button id="remove">Remove Selected File(s)</button>
+
+<script>
+  var selectable = $( "#selectable" ).selectable();
+  $( "#add" ).button().on( "click", function() {
+    selectable.append( "<li>new</li>" );
+  });
+  $( "#remove" ).button.on( "click", function() {
+    $( ".ui-selected" ).remove();
+  });
+</script>

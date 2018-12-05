@@ -1,0 +1,54 @@
+<!-- Listing 5.2  A grocery store shopping cart implementation -->
+
+<style>
+  #items { list-style: none; }
+  #items li {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100px;
+    cursor: move;
+  }
+  #cart {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 55px;
+    width: 150px;
+    border: 2px solid black;
+  }
+  #cart.active {
+    border: 2px dotted blak;
+  }
+  #cart.hover {
+    opacity: 0.5;
+  }
+</style>
+
+<ul id="items">
+  <li>Bananas</li>
+  <li>Apples</li>
+  <li>Grapes</li>
+  <li>Oranges</li>
+  <li>Watermelon</li>
+  <li>Strawberries</li>
+</ul>
+<div id="cart">
+  Cart - <span id="count">0</span> Items(s)
+</div>
+
+<script>
+  $( "#items li" ).draggable({
+    cursor: "move",
+    revert: "invalid",
+    helper: "clone"
+  });
+  $( "#cart" ).droppable({
+    activeClass: "active",
+    hoverClass: "hover",
+    drop: function( event, ui ) {
+      var count = parseInt( $( "#count" ).text(), 10 );
+      $( "#count" ).text( count + 1 );
+    },
+    tolerance: "touch"
+  });
+</script>
