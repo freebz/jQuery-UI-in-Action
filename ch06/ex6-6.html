@@ -1,0 +1,36 @@
+<!-- Listing 6.6  Comparing CSS animations to the jQuery UI effects -->
+
+<style>
+  @-webkit-keyframes shake { ... }
+  @keyframew shake {
+    0% { left: 0; }
+    12.5% { left: -20px; }
+    25% { left: 0; }
+    37.5% { left: 20px; }
+    50% { left: 0; }
+    62.5% { left: -20px; }
+    75% { left: 0; }
+    87.5% { left: 20px; }
+    100% { left: 0; }
+  }
+  #css {
+    position: absolute;
+    -webkit-animation: shake 1s linear;
+    animation: shake 1s linear;
+  }
+</style>
+<p id="css">CSS3</p>
+<p id="ui">jQuery UI</p>
+<script>
+  $( "#ui" ).effect( "shake", {
+    times: 2,
+    duration: 1000,
+    easing: "linear",
+    complete: function() {
+      console.log( "ui shake complete" );
+    }
+  });
+  $( "#css" ).on( "webkitAnimationEnd animationend", function() {
+    console.log( "css shake complete" );
+  });
+</script>

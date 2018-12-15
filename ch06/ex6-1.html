@@ -1,0 +1,37 @@
+<!-- Listing 6.1  A grocery list builder that uses the transfer effect -->
+
+<style>
+  .ui-effects-transfer { border: 1px dotted black; }
+</style>
+
+<div id="grocery-list">
+  <h3>Grocery List</h3>
+  <ul><li class="empty">Empty</li></ul>
+</div>
+<form>
+  <fieldset>
+    <legend>Add Groceries</legend>
+    <label for="items">Item:</label>
+    <input id="item" required>
+    <button>Add</button>
+  </fieldset>
+</form>
+
+<script>
+  function addToList( value ) {
+    var list = $( "#grocery-list ul" );
+    list.append( "<li>" + value + "</li>" );
+    list.find( ".empty" ).remove();
+  };
+
+  $( "form" ).on( "submit", function( event ) {
+    event.preventDefault();
+    $( "input" ).effect( "transfer", {
+      to: "#grocery-list ul",
+      complete: function() {
+	addToList( $( this ).val() );
+	$( this ).val( "" );
+      }
+    });
+  });
+</script>

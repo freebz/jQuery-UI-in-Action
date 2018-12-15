@@ -1,0 +1,24 @@
+<!-- Listing 6.5  Comparison of class name animation in jQuery UI and CSS3 -->
+
+<style>
+  #css {
+    -webkit-transition: color 5000ms linear;
+    transition: color 5000ms linear;
+  }
+  .red { color: red; }
+</style>
+<p id="ui">jQuery UI</p>
+<p id="css">CSS3</p>
+<script>
+  $( "#ui" ).addClass( "red", {
+    duration: 5000,
+    easing: "linear",
+    complete: function() {
+      console.log( "ui animation complete" );
+    }
+  });
+  $( "#css" ).addClass( "red" )
+    .on( "webkitTransitionEnd transitioned", function() {
+      console.log( "css transition complete" );
+    });
+</script>

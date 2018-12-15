@@ -1,0 +1,36 @@
+<!-- Listing 6.2  Implementation of portlet controls -->
+
+<div class="portlet ui-widget ui-widget-content ui-corner-all">
+  <div class="portlet-header ui-widget-header">
+    <button>minimize</button>
+    jQuery
+  </div>
+  <div class="portlet-content">
+    <p>jQuery is a...</p>
+  </div>
+</div>
+
+<script>
+  $( ".portlet" )
+    .graggable({ handle: ".ui-widget-header", stack: ".portlet" })
+    .each(function() {
+      $( this )
+	.find( "button" )
+	.button({
+	  icons: { primary: "ui-icon-minusthick" },
+	  text: false
+	})
+	.on( "click", function() {
+	  var maximized = $( this ).button( "option",
+					    "icons" ).primary === "ui-icon-minusthick";
+	  $( this )
+	    .button( "option", {
+	      label: maximized ? "maximize" : "minimize",
+	      icons: { primary: maximized ? "ui-icon-plusthick" :
+				"ui-icon-minusthick" }
+	    })
+	    .parents( ".portlet" )
+	    .find( ".portlet-content" ).toggle( "blind", 200 );
+	});
+    });
+</script>
