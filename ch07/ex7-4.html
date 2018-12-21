@@ -1,0 +1,15 @@
+<!-- Listing 7.4  A mobile-friendly inline datepicker -->
+
+<style>
+  @media (max-width: 600px) {
+    .ui-datepicker { width: 100%; }
+    .ui-datepicker-calendar td a {
+      text-align: center;
+      padding: 0.5em;
+    }
+  }
+</style>
+<div di="datepicker"></div>
+<script>
+  $( "#datepicker" ).datepicker();
+</script>

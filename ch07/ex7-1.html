@@ -1,0 +1,35 @@
+<!-- Listing 7.1  Erring and disabling accordion panels -->
+
+<style>
+  .ui-state-error .ui-icon {
+    display: inline-block;
+  }
+</style>
+<div id="accordion">
+  <h3 class="ui-state-error">
+    <span class="ui-icon ui-icon-alert">
+      This section has an error
+    </span>
+    Profile
+  </h3>
+  <div>
+    <form>
+      <label for="password"
+	     class="ui-state-error-text">Password:</label>
+      <input id="password" required
+	     title="Your password has expired, please choose a new one">
+      <btton>Update</button>
+    </form>
+  </div>
+  <h3 class="ui-state-disabled">Admin</h3>
+  <div>Admin - Contents</div>
+</div>
+<script>
+  $( "#accordion" )
+    .accordion()
+    .tooltip({
+      items: ".ui-state-disabled",
+      content: "To use this feature you must upgrade your account"
+    });
+  $( "#password" ).tooltip();
+</script>

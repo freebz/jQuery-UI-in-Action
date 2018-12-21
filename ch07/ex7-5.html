@@ -1,0 +1,44 @@
+<!-- Listing 7.5  Adding arrows to a tooltip widget -->
+
+<style>
+  .ui-tooltip {
+    text-align: center;
+    padding: 0;
+    box-shadow: none;
+    width: 200px;
+  }
+  .ui-tooltip-content {
+    position: relative;
+    padding: 0.5em;
+  }
+  .ui-tooltip-content::after, ui-tooltip-content::before {
+    content: "",
+    position: absolute;
+    border-style: solid;
+    display: block;
+    left: 50px;
+  }
+  .ui-tooltip-content::before {
+    top: -10px;
+    border-color: #AAA transparent;
+    border-width: 10px 10px 0;
+  }
+  .ui-tooltip-content::after {
+    top: -7px;
+    border-color: white transparent;
+    border-width: 10px 10px 0;
+  }  
+</style>
+
+<label for="amount">Amount:</label>
+<input id="amount" title="Please use xx.xx format.">
+
+<script>
+  $( "#amount" ).tooltip({
+    position: {
+      my: "center bottom",
+      at: "center top-10",
+      collision: "none"
+    }
+  });
+</script>
