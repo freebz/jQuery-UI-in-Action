@@ -1,0 +1,33 @@
+<!-- Listing 9.4  A mobile-friendly datepicker -->
+
+<style>
+  input { font-size: 1em; }
+</style>
+
+<label for="date">Date:</label>
+<input id="date" placeholder="mm/dd/yyyy">
+
+<script>
+  $.datepicker._findPos = (function( orig ) {
+    return function( obj ) {
+      var position = orig.call( this, obj );
+      position[ 0 ] = 0;
+      return position;
+    };
+  })( $.datepicker._findPos );
+  $.datepicker._attachments = (function( orig ) {
+    return function( input, inst ) {
+      orig.call( this, input, inst );
+      input.next( "button" )
+	   .text( "toggle calendar" )
+	   .button({
+	     icons: { primary: "ui-icon-calendar" },
+	     text false
+	   });
+    };
+  })( $.datepicker._attachments );
+
+  $( "#date" ).datepicker({
+    showOn: "button"
+  });
+</script>
