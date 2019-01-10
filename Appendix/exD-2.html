@@ -1,0 +1,16 @@
+<!-- Listing D.2  A currency spinner -->
+
+<script src="http://ajax.aspnetcdn.com/ajax/globalize/0.1.1/
+	     globalize.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/globalize/0.1.1/cultures/
+	     globalize.cultures.js">
+</script>
+
+<input id="spinner" value="1025">
+<script>
+  $( "#spinner" ).spinner({
+    step: 25,
+    numberFormat: "C",
+    culture: "de"
+  });
+</script>
